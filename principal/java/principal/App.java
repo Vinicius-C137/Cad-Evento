@@ -15,42 +15,74 @@ public class App {
         EventoManager eventoManager = new EventoManager();
 
         System.out.println("Cadastro Usuário:");
+        
         // entrada nome
         System.out.println("Nome: ");
         String userName = scanner.nextLine();
+
+        
         // entrada email
         System.out.println("Email: ");
         String userEmail = scanner.nextLine();
+
+        
         // entrada idade
-        System.out.println("Idade: ");
-        int userAge = scanner.nextInt();
+        int userAge = 0;
+        boolean validAge = false;
+
+        while (!validAge) {
+            try {
+                System.out.println("Idade: ");
+                userAge = Integer.parseInt(scanner.nextLine());
+                validAge = true;
+                if (userAge >= 0 && userAge <= 150) {
+                    validAge = true;
+                } else {
+                    System.out.println("Por favor, insira uma idade válida (0-150).");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Por favor, insira uma idade válida.");
+            }
+         
+        }
+
+        
         // entrada genero
         System.out.println("Sexo (M/F): ");
         boolean userSex = scanner.next().equalsIgnoreCase("M");
         scanner.nextLine();
+
+        
         // entrada endereço
         System.out.println("Endereço: ");
         String userAddress = scanner.nextLine();
+        
         // criação de usuario
 
         User usuario = new User(userName, userEmail, userAge, userSex, userAddress);
 
         System.out.println("Cadastro de Evento:");
+        
         // entrada nome evento
         System.out.println("Nome: ");
         String eventName = scanner.nextLine();
+        
         // entrada endereço evento
         System.out.println("Endereço: ");
         String eventAddress = scanner.nextLine();
+        
         // entrada categoria evento
         System.out.println("Categoria: ");
         String category = scanner.nextLine();
+        
         // entrada data e hora evento
         System.out.println("Horário (YYYY-MM-DDTHH:MM): ");
         LocalDateTime time = LocalDateTime.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        
         // descrição evento
         System.out.println("Descrição: ");
         String description = scanner.nextLine();
+        
         // criação de novo evento
         Evento evento = new Evento(eventName, eventAddress, category, time, description);
         eventoManager.cadastrarEvento(evento);
